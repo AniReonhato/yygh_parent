@@ -14,10 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 //医院设置接口
 @Api(description = "医院设置接口")
+@CrossOrigin
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
 public class HospitalSetController {
@@ -140,5 +142,33 @@ public class HospitalSetController {
         return R.ok();
     }
 
+    @ApiOperation(value = "登录")
+    @PostMapping("login")
+    public R login(){
+        //{"code":20000,"data":{"token":"admin-token"}}
+        return R.ok().data("token","admin-token");
+
+    }
+
+    @ApiOperation(value = "用户信息")
+    @GetMapping("info")
+    public R info(){
+//        {"code":20000,"data":{"roles":["admin"],
+//            "introduction":"I am a super administrator",
+//                    "avatar":"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+//                    "name":"Super Admin"}}
+        /*return R.ok().data("roles","admin")
+                .data("introduction","I am a super administrator")
+                .data("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif")
+                .data("name","Super Admin");*/
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("roles","admin");
+        map.put("introduction","I am a super administrator");
+        map.put("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        map.put("name","Super Admin");
+
+        return R.ok().data(map);
+
+    }
 
 }
